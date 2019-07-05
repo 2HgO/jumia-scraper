@@ -5,7 +5,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 from telebot import TeleBot
 
-bot_token = "817904118:AAHgjvmKTrFqu3ya-u1Bt4IklckAoIGMnLk"
+bot_token = '<API-Key>'
 bot = TeleBot(bot_token)
 
 class JumSpider(scrapy.Spider):
