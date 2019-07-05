@@ -27,14 +27,14 @@ class JumSpider(scrapy.Spider):
             price = 2501
         
         if price==1200:
-            print(F'PRICE: {price}')
-            img_url = JumSpider.src_extractor.findall(images[0])[0]
+            # print(F'PRICE: {price}')
+            # img_url = JumSpider.src_extractor.findall(images[0])[0]
             tag = JumSpider.tag_extractor.findall(images[0])[0]
-            if not re.search(r'(playstation)|(play station)|(PS4)|(PS 4)',tag,re.I):
-                continue
+            if re.search(r'(playstation)|(play station)|(PS4)|(PS 4)',tag,re.I):
+                yield ScrapeItem(title = tag, file_urls=[response.url],price=price)
             # print(F'image: {img_url}')
             # print(F'tag: {tag}')
-            yield ScrapeItem(title = tag, file_urls=[response.url],price=price)                
+            # yield ScrapeItem(title = tag, file_urls=[response.url],price=price)                
 
         link_extractor = LinkExtractor(allow=JumSpider.url_matcher)
         next_links = [link.url for link in link_extractor.extract_links(response) if not self.is_extracted(link.url)]
