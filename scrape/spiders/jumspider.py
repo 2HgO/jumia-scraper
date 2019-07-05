@@ -3,6 +3,11 @@ import scrapy
 import re
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
+from telebot import TeleBot
+
+bot_token = "817904118:AAHgjvmKTrFqu3ya-u1Bt4IklckAoIGMnLk"
+bot = TeleBot(bot_token)
+bot.polling()
 
 class JumSpider(scrapy.Spider):
     name = "bonus"
@@ -31,6 +36,11 @@ class JumSpider(scrapy.Spider):
             # img_url = JumSpider.src_extractor.findall(images[0])[0]
             tag = JumSpider.tag_extractor.findall(images[0])[0]
             if re.search(r'(playstation)|(play station)|(PS4)|(PS 4)',tag,re.I):
+                bot.send_message(770607717,F'''
+                title: {tag}
+                link: {response.url}
+                price: {price}
+                ''')
                 yield ScrapeItem(title = tag, file_urls=[response.url],price=price)
             # print(F'image: {img_url}')
             # print(F'tag: {tag}')
