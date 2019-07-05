@@ -7,7 +7,6 @@ from telebot import TeleBot
 
 bot_token = "817904118:AAHgjvmKTrFqu3ya-u1Bt4IklckAoIGMnLk"
 bot = TeleBot(bot_token)
-bot.polling()
 
 class JumSpider(scrapy.Spider):
     name = "bonus"
@@ -31,7 +30,7 @@ class JumSpider(scrapy.Spider):
         except:
             price = 2501
         
-        if price==1200:
+        if price>=1200:
             # print(F'PRICE: {price}')
             # img_url = JumSpider.src_extractor.findall(images[0])[0]
             tag = JumSpider.tag_extractor.findall(images[0])[0]
@@ -42,6 +41,12 @@ class JumSpider(scrapy.Spider):
                 price: {price}
                 ''')
                 yield ScrapeItem(title = tag, file_urls=[response.url],price=price)
+            bot.send_message(770607717,F'''
+                title: {tag}
+                link: {response.url}
+                price: {price}
+                ''')
+            exit()
             # print(F'image: {img_url}')
             # print(F'tag: {tag}')
             # yield ScrapeItem(title = tag, file_urls=[response.url],price=price)                
