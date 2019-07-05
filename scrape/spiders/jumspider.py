@@ -32,8 +32,8 @@ class JumSpider(scrapy.Spider):
             tag = JumSpider.tag_extractor.findall(images[0])[0]
             if not re.search(r'(playstation)|(play station)|(PS4)|(PS 4)',tag,re.I):
                 continue
-            print(F'image: {img_url}')
-            print(F'tag: {tag}')
+            # print(F'image: {img_url}')
+            # print(F'tag: {tag}')
             yield ScrapeItem(title = tag, file_urls=[response.url],price=price)                
 
         link_extractor = LinkExtractor(allow=JumSpider.url_matcher)
