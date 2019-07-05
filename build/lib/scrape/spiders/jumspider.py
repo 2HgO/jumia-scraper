@@ -35,7 +35,11 @@ class JumSpider(scrapy.Spider):
             # img_url = JumSpider.src_extractor.findall(images[0])[0]
             tag = JumSpider.tag_extractor.findall(images[0])[0]
             if re.search(r'(playstation)|(play station)|(PS4)|(PS 4)',tag,re.I):
-                bot.send_message(770607717,F'title: {tag} \n link: {response.url} \n price: {price}')
+                bot.send_message(770607717,F'''
+                title: {tag}
+                link: {response.url}
+                price: {price}
+                ''')
                 yield ScrapeItem(title = tag, file_urls=[response.url],price=price)
             # print(F'image: {img_url}')
             # print(F'tag: {tag}')
